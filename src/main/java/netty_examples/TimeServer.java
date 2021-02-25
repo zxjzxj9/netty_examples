@@ -14,35 +14,6 @@ import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-@Sharable
-class TimeServerHandler extends ChannelInboundHandlerAdapter {
-
-    @Override
-    public void channelRead(ChannelHandlerContext ctx, Object msg) {
-        ByteBuf in = (ByteBuf) msg;
-        String localTime = LocalDateTime.now()
-                .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-        ByteBuf out = Unpooled.copiedBuffer(("Current Time: " + localTime + "\n")
-                .getBytes(StandardCharsets.UTF_8));
-        System.out.println("Sever received at " + localTime);
-        ctx.write(out);
-    }
-
-    @Override
-    public void channelReadComplete(ChannelHandlerContext ctx) {
-        ctx.writeAndFlush(Unpooled.EMPTY_BUFFER)
-                .addListener(ChannelFutureListener.CLOSE);
-    }
-
-    @Override
-    public void exceptionCaught(ChannelHandlerContext ctx,
-                                Throwable cause) {
-        cause.printStackTrace();
-        ctx.close();
-    }
-
-}
-
 public class TimeServer {
     private final int port;
 
