@@ -36,7 +36,7 @@ public class EchoServer {
             ChannelFuture future = b.bind().sync();
             future.channel().closeFuture().sync();
         } finally {
-            System.out.println("Shutting dowm the server...");
+            System.out.println("Shutting down the server...");
             group.shutdownGracefully().sync();
         }
 
