@@ -31,7 +31,4 @@ public class EchoServerHandler extends ChannelInboundHandlerAdapter {
         ctx.close();
     }
 
-    public static void main(String[] args) {
-
-    }
 }
