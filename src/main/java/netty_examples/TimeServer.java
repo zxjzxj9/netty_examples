@@ -48,6 +48,7 @@ public class TimeServer {
         if(args.length != 1) {
             System.err.println(
                     "Usage: " + TimeServer.class.getSimpleName() + " <port>");
+            return;
         }
         int port = Integer.parseInt(args[0]);
         new TimeServer(port).start();
