@@ -20,7 +20,7 @@ public class PlainOioServer {
                         OutputStream out;
                         try {
                             out = client.getOutputStream();
-                            out.write(("Hi, " + client).getBytes(StandardCharsets.UTF_8));
+                            out.write(("Hi, " + client + " \n").getBytes(StandardCharsets.UTF_8));
                             out.flush();
                             client.close();
                         } catch (IOException e) {
