@@ -18,6 +18,10 @@ public class ByteBufEx {
         for(ByteBuf b: buf) {
             System.out.println(b.toString());
         }
+
+        while(buf.isReadable()) {
+            System.out.println((char)buf.readByte());
+        }
     }
 
     public static void main(String[] args) {
