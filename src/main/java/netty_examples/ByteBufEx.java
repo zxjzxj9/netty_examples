@@ -22,6 +22,16 @@ public class ByteBufEx {
         while(buf.isReadable()) {
             System.out.println((char)buf.readByte());
         }
+
+        for(ByteBuf b: buf) {
+            if (b.hasArray()) {
+                byte[] array = b.array();
+                int offset = b.arrayOffset();
+                int readIdx = b.readerIndex();
+                int sz = b.readableBytes();
+                System.out.println(new String(array, offset + readIdx, sz));
+            }
+        }
     }
 
     public static void writeBuffer(String s1) {
