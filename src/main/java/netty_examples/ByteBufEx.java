@@ -24,7 +24,16 @@ public class ByteBufEx {
         }
     }
 
+    public static void writeBuffer(String s1) {
+        ByteBuf buf = Unpooled.buffer();
+        buf.writeBytes(s1.getBytes(StandardCharsets.UTF_8));
+        while(buf.isReadable()) {
+            System.out.println((char) buf.readByte());
+        }
+    }
+
     public static void main(String[] args) {
         compositeBuffer("Hello, ", "World!");
+        writeBuffer("Hello");
     }
 }
