@@ -34,6 +34,18 @@ public class ByteBufEx {
         }
     }
 
+
+    public static void sliceBuffer(String s1) {
+        ByteBuf buf = Unpooled.copiedBuffer(s1.getBytes(StandardCharsets.UTF_8));
+
+        ByteBuf buf1 = buf.slice(0, 5);
+        byte[] array = buf1.array();
+        int offset = buf1.arrayOffset();
+        int readIdx = buf1.readerIndex();
+        int sz = buf1.readableBytes();
+        System.out.println(new String(array, offset+readIdx, sz));
+    }
+
     public static void writeBuffer(String s1) {
         ByteBuf buf = Unpooled.buffer();
         buf.writeBytes(s1.getBytes(StandardCharsets.UTF_8));
@@ -45,5 +57,6 @@ public class ByteBufEx {
     public static void main(String[] args) {
         compositeBuffer("Hello, ", "World!");
         writeBuffer("Hello");
+        sliceBuffer("Hello World!");
     }
 }
