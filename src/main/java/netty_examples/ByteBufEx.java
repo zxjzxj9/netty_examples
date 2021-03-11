@@ -43,6 +43,7 @@ public class ByteBufEx {
         int offset = buf1.arrayOffset();
         int readIdx = buf1.readerIndex();
         int sz = buf1.readableBytes();
+        System.out.println(buf.toString(StandardCharsets.UTF_8));
         System.out.println(new String(array, offset+readIdx, sz));
     }
 
