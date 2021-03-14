@@ -20,6 +20,7 @@ public class ChannelHandlerEx {
     public class SimpleDiscardHandler extends SimpleChannelInboundHandler<Object> {
         @Override
         public void channelRead0(ChannelHandlerContext ctx, Object msg) {
+            ReferenceCountUtil.release(msg);
         }
     }
 }
