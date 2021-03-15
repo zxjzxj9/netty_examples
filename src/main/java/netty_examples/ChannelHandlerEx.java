@@ -1,11 +1,9 @@
 package netty_examples;
 
-import io.netty.channel.ChannelHandler;
+import io.netty.channel.*;
 import io.netty.channel.ChannelHandler.Sharable;
-import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.ChannelInboundHandlerAdapter;
-import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.util.ReferenceCountUtil;
+import io.netty.util.concurrent.Promise;
 
 public class ChannelHandlerEx {
     @Sharable
@@ -23,4 +21,15 @@ public class ChannelHandlerEx {
             ReferenceCountUtil.release(msg);
         }
     }
+
+    @Sharable
+    public class DiscardChannelOutboundHandler extends ChannelOutboundHandlerAdapter {
+
+        @Override
+        public void write(ChannelHandlerContext ctx, Object msg, ChannelPromise promise) {
+            ReferenceCountUtil.release(msg);
+            promise.setSuccess();
+        }
+    }
+
 }
