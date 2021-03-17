@@ -6,6 +6,8 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.util.ReferenceCountUtil;
 import io.netty.util.concurrent.Promise;
 
+import java.nio.charset.StandardCharsets;
+
 public class ChannelHandlerEx {
     @Sharable
     public class DiscardHandler extends ChannelInboundHandlerAdapter {
@@ -32,6 +34,29 @@ public class ChannelHandlerEx {
         }
     }
 
+    @Sharable
+    public static class SimpleHandler extends ChannelHandlerAdapter {
+        private ChannelHandlerContext ctx;
+
+        @Override
+        public void handlerAdded(ChannelHandlerContext ctx) {
+            this.ctx = ctx;
+        }
+
+        public void send(String msg) {
+            ctx.writeAndFlush(msg.getBytes(StandardCharsets.UTF_8));
+        }
+    }
+
+    @Sharable
+    public static class SimpleReadHandler extends ChannelInboundHandlerAdapter {
+        @Override
+        public void channelRead(ChannelHandlerContext ctx, Object msg) {
+            System.out.println(msg);
+            ctx.fireChannelRead(msg);
+        }
+    }
+
     public static void main(String args) {
         ChannelHandler handler1 = new SimpleDiscardHandler();
         ChannelHandler handler2 = new DiscardChannelOutboundHandler();
@@ -42,6 +67,8 @@ public class ChannelHandlerEx {
                 socketChannel.pipeline().addLast(handler2);
             }
         };
+
+
     }
 
 }
