@@ -30,6 +30,18 @@ public class ChannelHandlerEx {
         @Override
         public void write(ChannelHandlerContext ctx, Object msg, ChannelPromise promise) {
             ReferenceCountUtil.release(msg);
+
+            promise.addListener(new ChannelFutureListener() {
+                    @Override
+                    public void operationComplete(ChannelFuture channelFuture) throws Exception {
+                        if(!channelFuture.isSuccess()) {
+                            channelFuture.cause().printStackTrace();
+                            channelFuture.channel().close();
+                        }
+                    }
+                }
+            );
+
             promise.setSuccess();
         }
     }
