@@ -55,6 +55,13 @@ public class ChannelHandlerEx {
             System.out.println(msg);
             ctx.fireChannelRead(msg);
         }
+
+        @Override
+        public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
+            cause.printStackTrace();
+            ctx.close();
+        }
+
     }
 
     public static void main(String args) {
