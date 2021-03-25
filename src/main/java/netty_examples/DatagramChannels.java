@@ -8,6 +8,8 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioDatagramChannel;
+import io.netty.util.concurrent.Future;
+import io.netty.util.concurrent.FutureListener;
 
 import java.net.InetSocketAddress;
 import java.nio.channels.DatagramChannel;
@@ -31,5 +33,15 @@ public class DatagramChannels {
                 channelFuture.cause().printStackTrace();
             }
         });
+
+        Future<?> future1 = bootstrap.group().shutdownGracefully();
+        future1.addListener((FutureListener) future2 -> {
+            if(future2.isSuccess()) {
+                System.out.println("Connect success");
+            } else {
+                future2.cause().printStackTrace();
+            }
+        });
+        future.syncUninterruptibly();
     }
 }
