@@ -2,16 +2,13 @@ package netty_examples;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
-import io.netty.handler.codec.ByteToMessageDecoder;
 import io.netty.handler.codec.ReplayingDecoder;
 
 import java.util.List;
 
-public class ToIntegerDecoder extends ByteToMessageDecoder {
+public class ToIntegerDecoder2 extends ReplayingDecoder<Void> {
     @Override
     protected void decode(ChannelHandlerContext channelHandlerContext, ByteBuf byteBuf, List<Object> list) throws Exception {
-        if(byteBuf.readableBytes() > 4) {
-            list.add(byteBuf.readInt());
-        }
+        list.add(byteBuf.readInt()); // no need to check readable bytes
     }
 }
