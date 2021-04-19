@@ -26,7 +26,7 @@ public class MarshallingInitializer extends ChannelInitializer<Channel> {
         pipeline.addLast(new ObjectHandler());
     }
 
-    public final class ObjectHandler extends SimpleChannelInboundHandler<Serializable> {
+    public static final class ObjectHandler extends SimpleChannelInboundHandler<Serializable> {
 
         @Override
         protected void channelRead0(ChannelHandlerContext channelHandlerContext, Serializable serializable) throws Exception {
