@@ -32,6 +32,10 @@ public class HttpRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, FullHttpRequest req) throws Exception {
+        if(wsUri.equalsIgnoreCase(req.uri())) {
+            ctx.fireChannelRead(req.retain());
+        } else {
 
+        }
     }
 }
