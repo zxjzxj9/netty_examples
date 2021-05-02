@@ -1,6 +1,8 @@
 package netty_examples;
 
 import java.net.InetSocketAddress;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public final class LogEvent {
     public static final byte SEPARATOR = (byte) ':';
@@ -35,5 +37,9 @@ public final class LogEvent {
         this.logfile = logfile;
         this.msg = msg;
         this.received = received;
+    }
+
+    public String getReceivedTimestamp() {
+        return LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME);
     }
 }
